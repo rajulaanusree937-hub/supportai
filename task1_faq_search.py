@@ -95,9 +95,15 @@ FAQS: List[Dict] = [
 # ---------------------------------------------------------------------------
 
 # Very common words that carry little search meaning on their own. Ignoring
-# these stops trivial matches like "my" from padding out hit counts on
-# unrelated FAQs (e.g. matching "my" inside "My Orders").
-STOPWORDS = {"my", "the", "a", "an", "is", "are", "to", "for", "of", "on", "i"}
+# these stops trivial matches like "my" or "what" from padding out hit
+# counts on unrelated FAQs (e.g. "what" appears in almost every FAQ
+# question, so without filtering it, any query containing "what" would
+# spuriously match nearly the whole knowledge base).
+STOPWORDS = {
+    "my", "the", "a", "an", "is", "are", "to", "for", "of", "on", "i",
+    "what", "how", "do", "does", "did", "your", "you", "can", "in", "at",
+    "me", "please", "with", "it", "this", "that", "and", "or", "be",
+}
 
 
 def search_by_keyword(faqs: List[Dict], query: str) -> List[Dict]:
